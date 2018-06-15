@@ -56,8 +56,8 @@ import permissions.dispatcher.RuntimePermissions;
  */
 @RuntimePermissions
 public class GPSIntallTestActivity extends FragmentActivity implements
-        GpsInstallContract.GpsInstallView,
-        View.OnClickListener
+        GpsInstallContract.GpsInstallView
+        ,View.OnClickListener
         ,GeocodeSearch.OnGeocodeSearchListener {
     /** 2d地图 */
     MapView mapView;
@@ -112,6 +112,11 @@ public class GPSIntallTestActivity extends FragmentActivity implements
 
     private String wayBillTitle; //气泡 标题
     Marker waybillMarker;
+
+    /** 拆除 */
+    private final int TearDown = 0;
+    /** 安装完成  */
+    private final int InstallComplete = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -197,11 +202,11 @@ public class GPSIntallTestActivity extends FragmentActivity implements
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_refresh_position: //刷新位置
-
+                getLocationInfo(wayBillTitle, custId, false);
                 break;
 
             case R.id.btn_remove: //拆除
-                    tearDown();
+                commonFun("是否拆除设备", TearDown);
                 break;
 
             case R.id.btn_lock_oil_elec: //锁油断电
@@ -209,11 +214,11 @@ public class GPSIntallTestActivity extends FragmentActivity implements
                 break;
 
             case R.id.tv_complete: //安装完成
-                    installComplete();
+                commonFun("是否安装完成", InstallComplete);
                 break;
 
             case R.id.tv_refresh_phone: //刷新手机位置
-
+                reLoad();
                 break;
         }
     }
@@ -235,22 +240,49 @@ public class GPSIntallTestActivity extends FragmentActivity implements
     }
 
 
-    /** 获取gps定位信息 */
+    /** 返回的gps定位信息 */
     @Override
-    public void getGpsLocationInfo() {
-
+    public void getGpsLocationInfo(String subTitle , boolean isComplete, GPSBean bean) {
+        listbean.clear();
+        listbean = bean.getReturnList();
+        if (!TextUtils.isEmpty(subTitle)){
+            for (int i = 0; i < listbean.size(); i++) {
+                imeiId = listbean.get(i).getImeiId();
+                wayBillTitle = imeiId.substring(imeiId.length() - 5, imeiId.length()); //imei 后5位
+                if (wayBillTitle.equals(subTitle)){
+                    setData(i, listbean);
+                }
+            }
+        }else {
+            setData(0, listbean);
+        }
+        startLocation(isComplete);
     }
 
-    /** 拆除 */
     @Override
-    public void tearDown() {
-        presenter.tearDown(imeiId);
-    }
-
-    /** 安装完成 */
-    @Override
-    public void installComplete() {
-
+    public void commonFun(String tip, final int type) {
+        new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage(tip)
+                .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                        if (type == TearDown){//拆除
+                            presenter.tearDown(imeiId);
+                        }else if (type == InstallComplete){//安装完成
+                            getLocationInfo(wayBillTitle, custId, true);
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 
     /**
@@ -282,7 +314,8 @@ public class GPSIntallTestActivity extends FragmentActivity implements
         tv_locationDate.setText(locationDate);
         tv_location_type.setText("[" + location_type.toUpperCase() + "]");//gps wifi
         //setInfoWindow();
-        //startLocation(listbean, false);
+        /** 申请权限并定位 */
+        GPSIntallTestActivityPermissionsDispatcher.showPermissionWithCheck(this);
         //GPS3DUtils.getInstance().getAddressByLatlng2D(this, new LatLng(lat, lon),this);
     }
 
@@ -372,7 +405,6 @@ public class GPSIntallTestActivity extends FragmentActivity implements
 
                 GPS3DUtils.getInstance().getAddressByLatlng2D(this, new LatLng(lat, lng),this);
 
-                //LatLng latLng = new LatLng(lat, lon);
                 aMap.moveCamera(CameraUpdateFactory.changeLatLng(latlng));
 
                 waybillMarker = aMap.addMarker(new MarkerOptions()
@@ -398,22 +430,24 @@ public class GPSIntallTestActivity extends FragmentActivity implements
 
     }
 
-    /************************权限申请**********************************/
-    @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE})
-    void showPermission() {
-
-        startLocation();
-    }
-
-    /** 定位 */
-    private void startLocation() {
+    /**
+     * 开始定位 也用于完成
+     * @param isCompleted 是否完成的判断
+     */
+    private void startLocation(final boolean isCompleted) {
         GPS3DUtils.getInstance().startLocation(this, new GPS3DUtils.LocationListener() {
             @Override
             public void onCallback(double latitude, double longitude, String address) {
                 curLat = latitude;
                 curLon = longitude;
 
+                initMap();
+
                 addMarkersToMap(listbean);
+
+                if (isCompleted){
+                    compareAndComplete();
+                }
             }
 
             @Override
@@ -421,6 +455,48 @@ public class GPSIntallTestActivity extends FragmentActivity implements
                 showToast("定位失败，请重新定位！");
             }
         });
+    }
+
+    /**
+     * 比较并完成
+     */
+    private void compareAndComplete() {
+        presenter.installComplete(custId);
+    }
+
+    /**
+     * 刷新手机位置
+     */
+    private void reLoad() {
+        GPS3DUtils.getInstance().startLocation(this, new GPS3DUtils.LocationListener() {
+
+            @Override
+            public void onCallback(double lat, double lon, String add) {
+                MyLocationStyle myLocationStyle = new MyLocationStyle();
+                myLocationStyle.showMyLocation(true);
+                myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);
+                aMap.setMyLocationStyle(myLocationStyle);
+                aMap.setMyLocationEnabled(true);
+            }
+
+            @Override
+            public void onErr() {
+                showToast("定位失败，请重新定位！");
+            }
+        });
+    }
+
+    /**
+     * 获取最新定位数据 点击 刷新 完成时都要调用
+     */
+    private void getLocationInfo(String subTitle ,String custId, boolean isComplete){
+        presenter.getLocationInfo(subTitle, custId, isComplete);
+    }
+
+    /************************权限申请**********************************/
+    @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE})
+    void showPermission() {
+        startLocation(false);
     }
 
     @Override

@@ -29,7 +29,6 @@ public class GpsInstallPresenter implements GpsInstallContract.GpsInstallPresent
         model = new GpsInstallModel();
     }
 
-
     /** 拆除 */
     @Override
     public void tearDown(String imeiId) {
@@ -54,7 +53,7 @@ public class GpsInstallPresenter implements GpsInstallContract.GpsInstallPresent
 
                     @Override
                     public void onError(String str) {
-
+                        view.showToast(str);
                     }
                 });
 
@@ -65,6 +64,7 @@ public class GpsInstallPresenter implements GpsInstallContract.GpsInstallPresent
     public void installComplete(String custId) {
         Map<String, String> map = ThreeDES.getPostHeadMap();
         map.put("token", BaseApplication.getInstance().getToken());
+        map.put("userId", BaseApplication.getInstance().getUserInfoBean().getUserId());
         map.put("custId", custId);
 
         model.installComplete(map)
@@ -84,14 +84,14 @@ public class GpsInstallPresenter implements GpsInstallContract.GpsInstallPresent
 
                     @Override
                     public void onError(String str) {
-
+                        view.showToast(str);
                     }
                 });
     }
 
      /** 获取定位信息 */
     @Override
-    public void getLocationInfo(String custId) {
+    public void getLocationInfo(final String subTitle , final String custId, final boolean isComplete) {
         Map<String, String> map = ThreeDES.getPostHeadMap();
         map.put("token", BaseApplication.getInstance().getToken());
         map.put("custId", custId);
@@ -103,7 +103,7 @@ public class GpsInstallPresenter implements GpsInstallContract.GpsInstallPresent
                 .subscribe(new FilterSubscriber<GPSBean>() {
                     @Override
                     public void onNext(GPSBean data) {
-
+                        view.getGpsLocationInfo(subTitle, isComplete, data);
                     }
 
                     @Override
@@ -113,7 +113,7 @@ public class GpsInstallPresenter implements GpsInstallContract.GpsInstallPresent
 
                     @Override
                     public void onError(String str) {
-
+                        view.showToast(str);
                     }
                 });
     }

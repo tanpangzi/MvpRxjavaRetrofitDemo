@@ -15,7 +15,7 @@ import rx.Observable;
  * <br> Date: 2018/6/14
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public interface GpsInstallContract {
+public interface GpsInstallContract{
     interface GpsInstallModel {
         Observable<GPSBean> getLoctionInfo(Map<String, String> map);
         Observable<Object> tearDown(Map<String, String> map);
@@ -25,11 +25,11 @@ public interface GpsInstallContract {
 
     interface GpsInstallView extends BaseView{
         /** 获取gps信息 */
-        void getGpsLocationInfo();
-        /** 拆除 */
-        void tearDown();
+        void getGpsLocationInfo(String subTitle , boolean isComplete, GPSBean bean);
+        /** 拆除 安装完成共用方法*/
+        void commonFun(String tip, int type);
         /** 安装完成 */
-        void installComplete();
+        //void installComplete();
     }
 
     interface GpsInstallPresenter {
@@ -40,7 +40,7 @@ public interface GpsInstallContract {
         void installComplete(String custId);
 
         /** 获取gps信息 */
-        void getLocationInfo(String custId);
+        void getLocationInfo(String subTitle ,String custId, boolean isComplete);
     }
 
 }
