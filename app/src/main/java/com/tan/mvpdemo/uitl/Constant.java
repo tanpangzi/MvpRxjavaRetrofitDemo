@@ -80,7 +80,8 @@ public class Constant {
     //public static final String BASE_URL = "http://192.168.5.16:9004"; //测试
     //public static final String BASE_URL = "http://192.168.5.70:9004"; //集成开发环境
     //public static final String BASE_URL = "http://dytapi-test.p2phx.com:19004"; //外网测试
-    public static final String BASE_URL ="http://test_dyt-platapi.zimilbs.com:50400"; //zmx外网测试
+    //public static final String BASE_URL ="http://test_dyt-platapi.zimilbs.com:50400"; //zmx外网测试
+    public static final String BASE_URL = "http://172.16.20.156:50400/"; //俊焕给的地址
     public static final String METHOD_UPLOADIMG = "/app/auth/task/uploadImg"; //图片上传
     //public static final String BASE_URL = "http://api.daiyetong.com"; //测试
 

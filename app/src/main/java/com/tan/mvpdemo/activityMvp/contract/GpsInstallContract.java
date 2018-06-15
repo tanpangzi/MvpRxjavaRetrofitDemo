@@ -29,7 +29,7 @@ public interface GpsInstallContract{
         /** 拆除 安装完成共用方法*/
         void commonFun(String tip, int type);
         /** 安装完成 */
-        //void installComplete();
+        void installComplete();
     }
 
     interface GpsInstallPresenter {

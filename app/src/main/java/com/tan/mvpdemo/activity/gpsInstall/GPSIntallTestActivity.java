@@ -1,6 +1,7 @@
 package com.tan.mvpdemo.activity.gpsInstall;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,8 +12,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amap.api.maps2d.AMap;
@@ -56,9 +60,11 @@ import permissions.dispatcher.RuntimePermissions;
  */
 @RuntimePermissions
 public class GPSIntallTestActivity extends FragmentActivity implements
-        GpsInstallContract.GpsInstallView
+        com.amap.api.maps2d.AMap.InfoWindowAdapter
+        ,GpsInstallContract.GpsInstallView
         ,View.OnClickListener
         ,GeocodeSearch.OnGeocodeSearchListener {
+
     /** 2d地图 */
     MapView mapView;
     /** 标题 */
@@ -117,6 +123,11 @@ public class GPSIntallTestActivity extends FragmentActivity implements
     private final int TearDown = 0;
     /** 安装完成  */
     private final int InstallComplete = 1;
+
+    /** 小气泡 */
+    private View infoWindow;
+
+    private TextView snippetUi;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -195,6 +206,24 @@ public class GPSIntallTestActivity extends FragmentActivity implements
         btn_lock_oil_elec.setOnClickListener(this);
         tv_refresh_phone.setOnClickListener(this);
         tv_complete.setOnClickListener(this);
+
+        /**
+         * 地图 marker点击事件
+         */
+        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                wayBillTitle = marker.getTitle();
+                if (TextUtils.isEmpty(wayBillTitle)){
+                    return false;
+                }else {
+                    getLocationInfo(wayBillTitle,custId,false);
+                    showToast(wayBillTitle);
+                }
+
+                return false;
+            }
+        });
     }
 
     /** 点击事件 */
@@ -283,6 +312,12 @@ public class GPSIntallTestActivity extends FragmentActivity implements
                 })
                 .setCancelable(false)
                 .show();
+    }
+
+    /** 安装完成 */
+    @Override
+    public void installComplete() {
+        endAndJump();
     }
 
     /**
@@ -493,6 +528,28 @@ public class GPSIntallTestActivity extends FragmentActivity implements
         presenter.getLocationInfo(subTitle, custId, isComplete);
     }
 
+    /** 小气泡 */
+    @Override
+    public View getInfoWindow(Marker marker) {
+        infoWindow = LayoutInflater.from(this).inflate(R.layout.custom_info_window, null);
+        WindowManager manager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+        int width = manager.getDefaultDisplay().getWidth();
+
+        snippetUi = infoWindow.findViewById(R.id.tv_content);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(width / 2 + 150, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(20, 0, 0, 0);
+        snippetUi.setLayoutParams(layoutParams);
+        //气泡显示后5位imei
+        snippetUi.setText(wayBillTitle = imeiId.substring(imeiId.length() - 5, imeiId.length()));
+
+        return infoWindow;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        return null;
+    }
+
     /************************权限申请**********************************/
     @NeedsPermission({Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_PHONE_STATE})
     void showPermission() {
@@ -529,5 +586,6 @@ public class GPSIntallTestActivity extends FragmentActivity implements
     void showDenied() {
         showToast("您权限了该权限，可能导致此功能不可用！");
     }
+
 
 }

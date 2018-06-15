@@ -74,7 +74,8 @@ public class GpsInstallPresenter implements GpsInstallContract.GpsInstallPresent
                 .subscribe(new FilterSubscriber<Object>() {
                     @Override
                     public void onNext(Object data) {
-
+                        view.showToast("安装完成");
+                        view.installComplete();
                     }
 
                     @Override
