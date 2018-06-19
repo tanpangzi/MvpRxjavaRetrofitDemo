@@ -51,6 +51,7 @@ dependencies {
     compile 'cn.bingoogolapple:bga-qrcodecore:1.1.8@aar'
     compile 'com.amap.api:search:latest.integration'
     compile 'cn.bingoogolapple:bga-zbar:1.1.8@aar'
+    compile 'com.github.donkingliang:CustomBanner:1.1.0'
     implementation files('libs/systembartint-1.0.4.jar')
     implementation files('libs/core-zxing.jar')
     implementation files('libs/picasso-2.5.2.jar')
