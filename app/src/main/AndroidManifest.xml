@@ -97,7 +97,12 @@
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"/>
 
+        <!--大图浏览类-->
         <activity android:name=".activity.ImageBrowseActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.gpsMonitor.GpsMonitorHomeActivity"
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"/>
 
