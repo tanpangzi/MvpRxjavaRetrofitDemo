@@ -1,5 +1,9 @@
 package com.tan.mvpdemo.activityMvp.contract
 
+import com.tan.mvpdemo.activityMvp.BaseView
+import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor
+import rx.Observable
+
 /**
  * <br></br> Description
  * <br></br> Author: 谭俊
@@ -9,11 +13,11 @@ package com.tan.mvpdemo.activityMvp.contract
  */
 interface GpsMonitorHomeContract {
     interface HomeModel{
-
+        fun getStoreList(map : Map<String, String>) :Observable<GpsMonitor.GpsMonitorHomeListBean>
     }
 
-    interface HomeView{
-
+    interface HomeView : BaseView{
+        fun getStoreList(stores: ArrayList<GpsMonitor.GpsMonitorHomeListBean>)
     }
 
     interface HomePresenter{
