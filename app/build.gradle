@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
@@ -57,4 +58,11 @@ dependencies {
     implementation files('libs/picasso-2.5.2.jar')
     implementation files('libs/photoview.jar')
     implementation files('libs/Msc.jar')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile 'org.jetbrains.anko:anko-sdk15:0.9'
+    compile 'org.jetbrains.anko:anko-support-v4:0.9'
+    compile 'org.jetbrains.anko:anko-appcompat-v7:0.9'
+}
+repositories {
+    mavenCentral()
 }

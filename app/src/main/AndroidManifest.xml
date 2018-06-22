@@ -102,10 +102,6 @@
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".activity.gpsMonitor.GpsMonitorHomeActivity"
-            android:configChanges="screenSize|orientation"
-            android:screenOrientation="portrait"/>
-
 
     </application>
 
