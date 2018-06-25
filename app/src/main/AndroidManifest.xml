@@ -102,6 +102,16 @@
             android:configChanges="screenSize|orientation"
             android:screenOrientation="portrait"/>
 
+        <!--GPS监控-->
+        <activity android:name=".activity.gpsMonitor.GpsMonitorHomeActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.SettingActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="portrait"/>
+
+
 
     </application>
 

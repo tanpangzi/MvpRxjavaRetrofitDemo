@@ -11,16 +11,17 @@ import rx.Observable
  * <br></br> Date: 2018/6/22
  * <br></br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
+
 interface GpsMonitorHomeContract {
     interface HomeModel{
-        fun getStoreList(map : Map<String, String>) :Observable<GpsMonitor.GpsMonitorHomeListBean>
+        fun getStoreList(map : Map<String, String>) :Observable<GpsMonitor.HomeBean>
     }
 
     interface HomeView : BaseView{
-        fun getStoreList(stores: ArrayList<GpsMonitor.GpsMonitorHomeListBean>)
+        fun getStoreList(stores : GpsMonitor.HomeBean)
     }
 
     interface HomePresenter{
-
+        fun getStoreList()
     }
 }

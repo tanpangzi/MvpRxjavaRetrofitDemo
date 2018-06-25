@@ -1,6 +1,20 @@
 package com.tan.mvpdemo.fragment;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.tan.mvpdemo.R;
+import com.tan.mvpdemo.activity.MainActivity;
+import com.tan.mvpdemo.activity.SettingActivity;
+import com.tan.mvpdemo.uitl.IntentUtil;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * <br> Description "我的"界面
@@ -11,6 +25,12 @@ import com.tan.mvpdemo.R;
  */
 public class MineFragment extends BaseFragment {
 
+
+    @BindView(R.id.tv_setting)
+    TextView tvSetting;
+    Unbinder unbinder;
+
+    private MainActivity mActivity;
 
     @Override
     protected int getContentViewId() {
@@ -24,6 +44,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void initGetData() {
+        mActivity = (MainActivity) getActivity();
 
     }
 
@@ -35,6 +56,26 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void widgetListener() {
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    /** 点击 */
+    @OnClick(R.id.tv_setting)
+    public void onViewClicked() {
+        IntentUtil.gotoActivity(mActivity, SettingActivity.class);
     }
 
 }

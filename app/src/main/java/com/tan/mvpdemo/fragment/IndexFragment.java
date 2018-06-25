@@ -11,6 +11,7 @@ import com.donkingliang.banner.CustomBanner;
 import com.tan.mvpdemo.R;
 import com.tan.mvpdemo.activity.MainActivity;
 import com.tan.mvpdemo.activity.gpsInstall.ZMXCarInfoActivity;
+import com.tan.mvpdemo.activity.gpsMonitor.GpsMonitorHomeActivity;
 import com.tan.mvpdemo.adapter.IndexItemAdapter;
 import com.tan.mvpdemo.bean.ItemBean;
 import com.tan.mvpdemo.config.ConstantKey;
@@ -123,7 +124,7 @@ public class IndexFragment extends BaseFragment {
                         if (ComUtils.getPermissionKey(ConstantKey.PERMISSION_GPS_MONITOR)){
                              /** gps超级管理员 */
                             if (ComUtils.getPermissionKey(ConstantKey.PERMISSION_GPS_WARDEN)){
-
+                                IntentUtil.gotoActivity(mActivity, GpsMonitorHomeActivity.class);
                             }else {
 
                             }

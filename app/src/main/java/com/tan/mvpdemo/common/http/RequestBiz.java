@@ -9,6 +9,7 @@ import com.tan.mvpdemo.bean.UserInfoLoginBean;
 import com.tan.mvpdemo.bean.gpsInstall.FiledBean;
 import com.tan.mvpdemo.bean.gpsInstall.GPSBean;
 import com.tan.mvpdemo.bean.gpsInstall.ZMXGPSDeviceInfoBean;
+import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor;
 
 import java.util.Map;
 
@@ -85,6 +86,13 @@ public interface RequestBiz {
     /** 锁油断电 */
     @POST("/app/auth/instructions")
     Observable<Result<Object>> lockInstructiom(@QueryMap Map<String, String> map);
+
+    @POST("/app/gps/getStoreList")
+    Observable<Result<GpsMonitor.HomeBean>> getStoreList(@QueryMap Map<String, String> map);
+
+    @POST("app/auth/mine/logout")
+    Observable<Result<Object>> logOut(@QueryMap Map<String, String> map);
+
 
     /*@POST("/app/version/check")
 //@Query("verCode") String verCode, @Query("type") String type, @Query("posttime") String posttime,@Query("sign") String sign
