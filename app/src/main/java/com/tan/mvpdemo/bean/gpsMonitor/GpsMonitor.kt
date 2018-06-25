@@ -15,10 +15,10 @@ class GpsMonitor {
                         val online : String,
                         val returnList: ArrayList<GpsMonitorHomeListBean>)
 
-    data class GpsMonitorHomeListBean(val orgId : String,
-                                      val invalid : String,
+    data class GpsMonitorHomeListBean(val orgId : String,//机构id
+                                      val invalid : String, //失效个数
                                       val sum : String,//当前门店总数
-                                      val orgName : String,
+                                      val orgName : String,//机构名称
                                       val offline : String, //当前门店下线
                                       val online : String) //当前门店上线
 }

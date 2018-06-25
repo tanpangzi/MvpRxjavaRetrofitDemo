@@ -1,7 +1,13 @@
 package com.tan.mvpdemo.activity
 
+import com.tan.mvpdemo.BaseApplication
 import com.tan.mvpdemo.R
+import com.tan.mvpdemo.activityMvp.contract.SettingContract
+import com.tan.mvpdemo.activityMvp.presenter.SettingPresenter
+import com.tan.mvpdemo.uitl.AppManagerUtil
+import com.tan.mvpdemo.uitl.IntentUtil
 import com.tan.mvpdemo.uitl.TitleView
+import com.tan.mvpdemo.uitl.ToastUtil
 import com.tan.mvpdemo.widget.AutoBgButton
 import com.tan.mvpdemo.widget.AutoBgTextView
 import org.jetbrains.anko.find
@@ -13,7 +19,7 @@ import org.jetbrains.anko.find
  * <br> Date: 2018/6/25
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class SettingActivity : BaseActivity() {
+class SettingActivity : BaseActivity() ,SettingContract.SettingView{
 
     /** 标题 */
     var title_view : TitleView ?= null
@@ -23,6 +29,8 @@ class SettingActivity : BaseActivity() {
     var txt_check_version : AutoBgTextView ?= null
     /** 退出登录 */
     var btn_login_out : AutoBgButton ?= null
+
+    var presenter : SettingContract.SettingPresenter ?= null
 
     override fun getContentViewId(): Int {
         return R.layout.activity_setting
@@ -36,12 +44,31 @@ class SettingActivity : BaseActivity() {
     }
 
     override fun initGetData() {
+        presenter = SettingPresenter(this)
     }
 
     override fun init() {
+        title_view!!.setLeftBtnImg()
+        title_view!!.setTitle("设置")
     }
 
     override fun widgetListener() {
-        btn_login_out!!.setOnClickListener {  }
+        btn_login_out!!.setOnClickListener {
+            presenter!!.logout()
+        }
+    }
+
+    /****************/
+    /** 操作成功 */
+    override fun onSuccess() {
+        var bean = BaseApplication.getInstance().userInfoBean
+        bean.token = ""
+        BaseApplication.getInstance().userInfoBean = bean
+        AppManagerUtil.getAppManager().finishAllActivity()
+        IntentUtil.gotoActivityToTopAndFinish(this, LoginActivity::class.java)
+    }
+
+    override fun showToast(msg: String?) {
+        ToastUtil.showToast(this@SettingActivity, msg)
     }
 }

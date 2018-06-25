@@ -64,7 +64,7 @@ class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContract.HomeView{
     override fun init() {
         title_view!!.setTitle("紫米星监控平台")
         title_view!!.setLeftBtnImg()
-        presenter = GpsMonitorHomePresenter2(this)
+        presenter = GpsMonitorHomePresenter(this)
         presenter!!.getStoreList()
     }
 

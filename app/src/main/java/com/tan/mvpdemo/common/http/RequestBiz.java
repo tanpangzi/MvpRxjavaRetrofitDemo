@@ -90,7 +90,7 @@ public interface RequestBiz {
     @POST("/app/gps/getStoreList")
     Observable<Result<GpsMonitor.HomeBean>> getStoreList(@QueryMap Map<String, String> map);
 
-    @POST("app/auth/mine/logout")
+    @POST("/app/auth/mine/logout")
     Observable<Result<Object>> logOut(@QueryMap Map<String, String> map);
 
 

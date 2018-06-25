@@ -32,11 +32,11 @@ class GpsMonitorHomePresenter : GpsMonitorHomeContract.HomePresenter {
          var map = ThreeDES.getPostHeadMap()
 
          /** 这相当于map.put */
-         map["token"] = BaseApplication.getInstance().token
-         map["name"] = BaseApplication.getInstance().userInfoBean.userName
+         val token= BaseApplication.getInstance().token
+         val name = BaseApplication.getInstance().userInfoBean.userName
 
-         /*map.put("token", token)
-         map.put("name", name)*/
+         map.put("token", token)
+         map.put("name", name)
 
          gpsModel!!.getStoreList(map)
                  .subscribeOn(Schedulers.io())
