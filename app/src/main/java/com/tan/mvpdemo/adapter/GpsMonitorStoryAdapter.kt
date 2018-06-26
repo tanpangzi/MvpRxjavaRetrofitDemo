@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.BaseExpandableListAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.tan.mvpdemo.R
@@ -12,6 +13,7 @@ import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor
 import org.jetbrains.anko.find
 import org.jetbrains.anko.image
 import org.jetbrains.anko.imageBitmap
+import org.jetbrains.anko.textColor
 
 /**
  * <br> Description
@@ -45,7 +47,7 @@ class GpsMonitorStoryAdapter(context : Context, resId: Int, datas : ArrayList<Gp
         /** 状态 断电报警*/
         val container_state = view.find<TextView>(R.id.container_state)
 
-        container_name.text = item.orgName
+        container_name.text = item.name
         container_plate.text = item.carNumber
 
         /** 图标 */
@@ -57,7 +59,19 @@ class GpsMonitorStoryAdapter(context : Context, resId: Int, datas : ArrayList<Gp
             containe_image.setImageResource(R.mipmap.odb_icon)
         }
 
-        container_type
+        container_type.text = item.driveStatus
+
+        val orgName = item.orgName
+        var acc = "ACC"
+        val accState = item.accState
+        if ("0".equals(accState)){
+            acc += "关"
+        }else if ("1".equals(accState)){
+            acc += "开"
+        }
+        val speed = item.speed + "KM/H"
+        val
+
 
         return view
 
