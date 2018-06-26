@@ -87,12 +87,11 @@ public interface RequestBiz {
     @POST("/app/auth/instructions")
     Observable<Result<Object>> lockInstructiom(@QueryMap Map<String, String> map);
 
-    @POST("/app/gps/getStoreList")
+    @POST("app/auth/getStoreList")
     Observable<Result<GpsMonitor.HomeBean>> getStoreList(@QueryMap Map<String, String> map);
 
     @POST("/app/auth/mine/logout")
     Observable<Result<Object>> logOut(@QueryMap Map<String, String> map);
-
 
     /*@POST("/app/version/check")
 //@Query("verCode") String verCode, @Query("type") String type, @Query("posttime") String posttime,@Query("sign") String sign

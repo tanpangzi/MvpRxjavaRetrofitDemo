@@ -1,6 +1,6 @@
 package com.tan.mvpdemo.activityMvp.model
 
-import com.tan.mvpdemo.activityMvp.contract.GpsMonitorHomeContract
+import com.tan.mvpdemo.activityMvp.contract.GpsMonitorHomeContractKot
 import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor
 import com.tan.mvpdemo.common.http.RequestServer
 import com.tan.mvpdemo.common.http.ResponseFunc
@@ -13,7 +13,7 @@ import rx.Observable
  * <br></br> Date: 2018/6/22
  * <br></br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class GpsMonitorHomeModel : GpsMonitorHomeContract.HomeModel {
+class GpsMonitorHomeModelKot : GpsMonitorHomeContractKot.HomeModel {
     override fun getStoreList(map: Map<String, String>): Observable<GpsMonitor.HomeBean> {
         return RequestServer.createRetrofit().getStoreList(map)
                 .map(ResponseFunc<GpsMonitor.HomeBean>())

@@ -12,7 +12,7 @@ import rx.Observable
  * <br></br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
 
-interface GpsMonitorHomeContract {
+interface GpsMonitorHomeContractKot {
     interface HomeModel{
         fun getStoreList(map : Map<String, String>) :Observable<GpsMonitor.HomeBean>
     }

@@ -4,9 +4,8 @@ import android.widget.ListView
 import android.widget.TextView
 import com.tan.mvpdemo.R
 import com.tan.mvpdemo.activity.BaseActivity
-import com.tan.mvpdemo.activityMvp.contract.GpsMonitorHomeContract
-import com.tan.mvpdemo.activityMvp.presenter.GpsMonitorHomePresenter
-import com.tan.mvpdemo.activityMvp.presenter.GpsMonitorHomePresenter2
+import com.tan.mvpdemo.activityMvp.contract.GpsMonitorHomeContractKot
+import com.tan.mvpdemo.activityMvp.presenter.GpsMonitorHomePresenterKot
 import com.tan.mvpdemo.adapter.GpsMonitorHomeAdapter
 import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor
 import com.tan.mvpdemo.uitl.TitleView
@@ -21,7 +20,7 @@ import java.util.ArrayList
  * <br> Date: 2018/6/22
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContract.HomeView{
+class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContractKot.HomeView{
 
     /** 标题 */
     var title_view : TitleView ?= null
@@ -42,7 +41,7 @@ class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContract.HomeView{
     /** 数量 */
     private var orderListBean = ArrayList<GpsMonitor.GpsMonitorHomeListBean>()
 
-    private var presenter : GpsMonitorHomeContract.HomePresenter ?= null
+    private var presenter : GpsMonitorHomeContractKot.HomePresenter ?= null
 
     override fun getContentViewId(): Int {
         return R.layout.activity_gps_monitor_home
@@ -64,7 +63,7 @@ class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContract.HomeView{
     override fun init() {
         title_view!!.setTitle("紫米星监控平台")
         title_view!!.setLeftBtnImg()
-        presenter = GpsMonitorHomePresenter(this)
+        presenter = GpsMonitorHomePresenterKot(this)
         presenter!!.getStoreList()
     }
 
