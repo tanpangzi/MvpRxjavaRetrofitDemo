@@ -32,10 +32,10 @@ class  GpsMonitorHomeAdapter(context: Context, resId: Int, datas : ArrayList<Gps
         val txt_invalid = view.find<TextView>(R.id.txt_invalid)
 
         txt_store_name.text = item.orgName
-        txt_total.text = item.sum
-        txt_on_line.text = item.online
-        txt_off_line.text = item.offline
-        txt_invalid.text = item.invalid
+        txt_total.text = "总数" + "(" + item.sum + ")"
+        txt_on_line.text = "在线" + " | " + item.online
+        txt_off_line.text = "离线" + " | " + item.offline
+        txt_invalid.text = "失效" + " | " + item.invalid
 
         return view
     }

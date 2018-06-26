@@ -1,0 +1,68 @@
+package com.tan.mvpdemo.adapter
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
+import com.tan.mvpdemo.R
+import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor
+import org.jetbrains.anko.find
+import org.jetbrains.anko.image
+import org.jetbrains.anko.imageBitmap
+
+/**
+ * <br> Description
+ * <br> Author: 谭俊
+ * <br> PackageName com.tan.mvpdemo.adapter
+ * <br> Date: 2018/6/26
+ * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
+ */
+class GpsMonitorStoryAdapter(context : Context, resId: Int, datas : ArrayList<GpsMonitor.GpsMonitorSotryBean>)
+    : ArrayAdapter<GpsMonitor.GpsMonitorSotryBean>(context, resId, datas) {
+    /** xml布局  ID */
+    val resId = resId
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        /** 数据 */
+        val item = getItem(position)
+        /** 布局view */
+        val view = LayoutInflater.from(context).inflate(resId, null)
+        /** 用户名 */
+        val container_name = view.find<TextView>(R.id.container_plate)
+        /** 车牌号 */
+        val container_plate = view.find<TextView>(R.id.container_plate)
+        /** 图标状态 有线 无线 odb*/
+        val containe_image = view.find<ImageView>(R.id.containe_image)
+        /** 车辆状态 行驶 停止 */
+        val container_type = view.find<TextView>(R.id.container_type)
+        /** 车辆数据 石家庄 | ACC 开 33KM/H*/
+        val container_parameter = view.find<TextView>(R.id.container_parameter)
+        /** 日期 */
+        val container_date = view.find<TextView>(R.id.container_date)
+        /** 状态 断电报警*/
+        val container_state = view.find<TextView>(R.id.container_state)
+
+        container_name.text = item.orgName
+        container_plate.text = item.carNumber
+
+        /** 图标 */
+        if ("0".equals(item.type)){
+            containe_image.setImageResource(R.mipmap.alarm_icon_wired)
+        }else if ("1".equals(item.type)){
+            containe_image.setImageResource(R.mipmap.alarm_info_icon_wireless)
+        }else if ("2".equals(item.type)){
+            containe_image.setImageResource(R.mipmap.odb_icon)
+        }
+
+        container_type
+
+        return view
+
+
+    }
+
+
+}

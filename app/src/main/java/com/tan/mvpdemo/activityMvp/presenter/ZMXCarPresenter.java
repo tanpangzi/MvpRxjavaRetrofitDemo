@@ -116,9 +116,4 @@ public class ZMXCarPresenter implements ZMXCarContract.ZMXCarPresenter {
 
     }
 
-    @Override
-    public void onFailed(String msg) {
-        view.showToast(msg);
-    }
-
 }

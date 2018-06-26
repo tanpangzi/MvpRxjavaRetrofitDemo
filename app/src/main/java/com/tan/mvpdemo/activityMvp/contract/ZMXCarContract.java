@@ -42,7 +42,6 @@ public interface ZMXCarContract {
     interface ZMXCarPresenter {
         void getOrgInfo();
         void createCustomerInfo();
-        void onFailed(String msg);
     }
 
 }

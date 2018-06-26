@@ -1,5 +1,7 @@
 package com.tan.mvpdemo.activity.gpsMonitor
 
+import android.os.Bundle
+import android.view.View
 import android.widget.ListView
 import android.widget.TextView
 import com.tan.mvpdemo.R
@@ -8,6 +10,8 @@ import com.tan.mvpdemo.activityMvp.contract.GpsMonitorHomeContractKot
 import com.tan.mvpdemo.activityMvp.presenter.GpsMonitorHomePresenterKot
 import com.tan.mvpdemo.adapter.GpsMonitorHomeAdapter
 import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor
+import com.tan.mvpdemo.config.ConstantKey
+import com.tan.mvpdemo.uitl.IntentUtil
 import com.tan.mvpdemo.uitl.TitleView
 import com.tan.mvpdemo.uitl.ToastUtil
 import org.jetbrains.anko.find
@@ -63,6 +67,12 @@ class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContractKot.HomeVie
     override fun init() {
         title_view!!.setTitle("紫米星监控平台")
         title_view!!.setLeftBtnImg()
+        title_view!!.setRightBtnImg(R.drawable.search_big, View.OnClickListener {
+            val bundle = Bundle()
+            bundle.putBoolean(ConstantKey.INTENT_KEY_BOOLEAN1, false)
+            IntentUtil.gotoActivity(this@GpsMonitorHomeActivity, GpsMonitorStoryActivity::class.java, bundle)
+        })
+
         presenter = GpsMonitorHomePresenterKot(this)
         presenter!!.getStoreList()
     }
@@ -79,6 +89,8 @@ class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContractKot.HomeVie
         txt_off_line!!.text = stores.offline
 
         orderListBean = stores.returnList
+        mAdapter = GpsMonitorHomeAdapter(this, R.layout.item_gps_monitor_home, orderListBean)
+        lv_base!!.adapter = mAdapter
     }
 
     override fun showToast(msg: String?) {
