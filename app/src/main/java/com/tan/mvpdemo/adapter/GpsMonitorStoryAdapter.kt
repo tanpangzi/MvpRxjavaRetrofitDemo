@@ -1,6 +1,7 @@
 package com.tan.mvpdemo.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,13 +70,43 @@ class GpsMonitorStoryAdapter(context : Context, resId: Int, datas : ArrayList<Gp
         }else if ("1".equals(accState)){
             acc += "开"
         }
-        val speed = item.speed + "KM/H"
-        val
 
+        /** 速度 */
+        val speed = item.speed
+        val unitSpeed = speed + "KM/H"
+        if (unitSpeed.toInt() > 0){
+            container_type.textColor = Color.GREEN
+        }else{
+            container_type.textColor = Color.BLUE
+        }
+
+        //container_parameter.text = orgName + "|" + acc + " " + unitSpeed
+        container_parameter.text = "$orgName|$acc $unitSpeed"
+
+        val time = item.location_time
+        val status = item.status
+        container_date.text = "$time $status"
+
+        container_state.text = item.warning_name
+        container_state.textColor = getTextColor(item.color)
+
+        /** item点击 */
+        convertView!!.setOnClickListener {  }
 
         return view
 
+    }
 
+    fun getTextColor(color : String) : Int{
+        var c = -1
+        when(color){
+            "0" -> c = Color.GRAY
+            "1" -> c = Color.RED
+            "2" -> c = Color.GREEN
+            "3" -> c = Color.YELLOW
+            "4" -> c = Color.BLUE
+        }
+        return c
     }
 
 

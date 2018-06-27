@@ -1,13 +1,17 @@
 package com.tan.mvpdemo.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.tan.mvpdemo.R
+import com.tan.mvpdemo.activity.gpsMonitor.GpsMonitorStoryActivity
 import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor
+import com.tan.mvpdemo.config.ConstantKey
+import com.tan.mvpdemo.uitl.IntentUtil
 import org.jetbrains.anko.find
 
 /**
@@ -20,6 +24,7 @@ import org.jetbrains.anko.find
 class  GpsMonitorHomeAdapter(context: Context, resId: Int, datas : ArrayList<GpsMonitor.GpsMonitorHomeListBean>)
     : ArrayAdapter<GpsMonitor.GpsMonitorHomeListBean>(context, resId, datas){
     val resId = resId
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         /** 获取当前的位置 */
         val item = getItem(position)
@@ -36,6 +41,14 @@ class  GpsMonitorHomeAdapter(context: Context, resId: Int, datas : ArrayList<Gps
         txt_on_line.text = "在线" + " | " + item.online
         txt_off_line.text = "离线" + " | " + item.offline
         txt_invalid.text = "失效" + " | " + item.invalid
+
+        /** item点击事件 */
+        convertView!!.setOnClickListener(View.OnClickListener {
+            var bundle = Bundle()
+            bundle.putString(ConstantKey.INTENT_KEY_STRING, item.orgName)
+            bundle.putString(ConstantKey.INTENT_KEY_ID, item.orgId)
+            IntentUtil.gotoActivity(context, GpsMonitorStoryActivity::class.java, bundle)
+        })
 
         return view
     }

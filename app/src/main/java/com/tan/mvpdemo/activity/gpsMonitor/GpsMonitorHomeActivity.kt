@@ -68,7 +68,7 @@ class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContractKot.HomeVie
         title_view!!.setTitle("紫米星监控平台")
         title_view!!.setLeftBtnImg()
         title_view!!.setRightBtnImg(R.drawable.search_big, View.OnClickListener {
-            val bundle = Bundle()
+            var bundle = Bundle()
             bundle.putBoolean(ConstantKey.INTENT_KEY_BOOLEAN1, false)
             IntentUtil.gotoActivity(this@GpsMonitorHomeActivity, GpsMonitorStoryActivity::class.java, bundle)
         })
@@ -82,6 +82,7 @@ class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContractKot.HomeVie
     }
 
     /********************************/
+    /** 返回 数据并set进去 */
     override fun getStoreList(stores: GpsMonitor.HomeBean) {
         txt_invalid!!.text = stores.invalid
         txt_total!!.text = stores.sum
