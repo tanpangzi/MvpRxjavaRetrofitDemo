@@ -15,10 +15,8 @@ import butterknife.OnClick;
 /**
  * 登录界面
  */
-public class LoginActivity extends BaseActivity implements LoginContract.LoginView {
+public class LoginActivity extends BaseActivity<LoginContract.LoginPresenter> implements LoginContract.LoginView {
 
-    /** P层接口 */
-    LoginContract.LoginPresenter mPresenter;
     /** 用户名输入框 */
     @BindView(R.id.et_login_username)
     ContainsEmojiEditText etLoginUsername;
@@ -36,7 +34,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
 
     @Override
     protected void findViews() {
-        mPresenter = new LoginPresenter(this);
     }
 
     @Override
@@ -52,6 +49,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.LoginVi
     @Override
     protected void widgetListener() {
 
+    }
+
+    @Override
+    public LoginContract.LoginPresenter initPresenter() {
+        return new LoginPresenter(this);
     }
 
     @Override

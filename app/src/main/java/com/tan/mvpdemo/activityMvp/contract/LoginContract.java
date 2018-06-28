@@ -1,5 +1,6 @@
 package com.tan.mvpdemo.activityMvp.contract;
 
+import com.tan.mvpdemo.activityMvp.BasePresenter;
 import com.tan.mvpdemo.activityMvp.BaseView;
 import com.tan.mvpdemo.bean.UserInfoLoginBean;
 
@@ -23,7 +24,7 @@ public interface LoginContract {
         String getPassword();
     }
 
-    interface LoginPresenter {
+    interface LoginPresenter extends BasePresenter{
         void login();
     }
 }

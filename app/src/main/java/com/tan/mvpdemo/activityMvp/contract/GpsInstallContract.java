@@ -1,5 +1,6 @@
 package com.tan.mvpdemo.activityMvp.contract;
 
+import com.tan.mvpdemo.activityMvp.BasePresenter;
 import com.tan.mvpdemo.activityMvp.BaseView;
 import com.tan.mvpdemo.bean.gpsInstall.GPSBean;
 
@@ -32,7 +33,7 @@ public interface GpsInstallContract{
         void installComplete();
     }
 
-    interface GpsInstallPresenter {
+    interface GpsInstallPresenter extends BasePresenter{
         /** 拆除 */
         void tearDown(String imeiId);
 

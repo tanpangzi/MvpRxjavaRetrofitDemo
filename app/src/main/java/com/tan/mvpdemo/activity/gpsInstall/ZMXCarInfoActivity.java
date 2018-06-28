@@ -9,6 +9,7 @@ import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.lib.WheelView;
 import com.tan.mvpdemo.R;
 import com.tan.mvpdemo.activity.BaseActivity;
+import com.tan.mvpdemo.activityMvp.BasePresenter;
 import com.tan.mvpdemo.activityMvp.contract.ZMXCarContract;
 import com.tan.mvpdemo.activityMvp.presenter.ZMXCarPresenter;
 import com.tan.mvpdemo.bean.PickerCardBean;
@@ -29,7 +30,7 @@ import java.util.List;
  * <br> Date: 2018/6/5
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class ZMXCarInfoActivity extends BaseActivity implements ZMXCarContract.ZMXCarView, View.OnClickListener {
+public class ZMXCarInfoActivity extends BaseActivity<ZMXCarContract.ZMXCarPresenter> implements ZMXCarContract.ZMXCarView, View.OnClickListener {
 
     /**
      * 标题
@@ -64,11 +65,6 @@ public class ZMXCarInfoActivity extends BaseActivity implements ZMXCarContract.Z
     String custId;
 
     /**
-     * P层
-     */
-    ZMXCarContract.ZMXCarPresenter mPresenter;
-
-    /**
      * 组织选择器
      */
     private PickerCardBean datas;
@@ -87,19 +83,18 @@ public class ZMXCarInfoActivity extends BaseActivity implements ZMXCarContract.Z
 
     @Override
     protected void findViews() {
-        titleView = findViewByIds(R.id.title_view);
-        etConsumerName = findViewByIds(R.id.et_consumer_name);
+        titleView =  findViewByIds(R.id.title_view);
+        etConsumerName =  findViewByIds(R.id.et_consumer_name);
         etCarNum = findViewByIds(R.id.et_car_num);
         llContainer = findViewByIds(R.id.ll_container);
         tvOrg = findViewByIds(R.id.tv_org);
-        btnNext = findViewByIds(R.id.btn_next);
+        btnNext =  findViewByIds(R.id.btn_next);
     }
+
 
     @Override
     protected void initGetData() {
 
-        /** 实例化P层 */
-        mPresenter = new ZMXCarPresenter(this);
         /** 获取列表 */
         mPresenter.getOrgInfo();
     }
@@ -117,6 +112,11 @@ public class ZMXCarInfoActivity extends BaseActivity implements ZMXCarContract.Z
     protected void widgetListener() {
         llContainer.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+    }
+
+    @Override
+    public ZMXCarContract.ZMXCarPresenter initPresenter() {
+        return new ZMXCarPresenter(this);
     }
 
     @Override

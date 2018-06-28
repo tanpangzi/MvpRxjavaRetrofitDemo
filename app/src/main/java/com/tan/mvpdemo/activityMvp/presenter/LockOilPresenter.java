@@ -1,6 +1,7 @@
 package com.tan.mvpdemo.activityMvp.presenter;
 
 import com.tan.mvpdemo.BaseApplication;
+import com.tan.mvpdemo.activityMvp.BasePresenterImpl;
 import com.tan.mvpdemo.activityMvp.contract.LockOilContract;
 import com.tan.mvpdemo.activityMvp.model.LockOilModel;
 import com.tan.mvpdemo.common.http.FilterSubscriber;
@@ -18,14 +19,12 @@ import rx.schedulers.Schedulers;
  * <br> Date: 2018/6/14
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class LockOilPresenter implements LockOilContract.LockOilPresenter {
+public class LockOilPresenter extends BasePresenterImpl<LockOilContract.LockOilView> implements LockOilContract.LockOilPresenter {
 
     LockOilContract.LockOilModel model;
-    LockOilContract.LockOilView view;
 
     public LockOilPresenter(LockOilContract.LockOilView view) {
-        this.view = view;
-        model = new LockOilModel();
+        super(view);
     }
 
     /** 锁油断电 */

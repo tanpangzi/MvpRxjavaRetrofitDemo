@@ -1,5 +1,6 @@
 package com.tan.mvpdemo.activityMvp.contract;
 
+import com.tan.mvpdemo.activityMvp.BasePresenter;
 import com.tan.mvpdemo.activityMvp.BaseView;
 
 import java.util.Map;
@@ -23,7 +24,7 @@ public interface LockOilContract {
         String getLockStatus();
     }
 
-    interface LockOilPresenter {
+    interface LockOilPresenter extends BasePresenter{
         void lockInstruction(String imeiId);
     }
 }

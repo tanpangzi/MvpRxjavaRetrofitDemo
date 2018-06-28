@@ -64,7 +64,7 @@ import permissions.dispatcher.RuntimePermissions;
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
 @RuntimePermissions
-public class ZMXGpsLoadingActivity extends BaseActivity implements GpsLoadingContract.GpsLoadingView{
+public class ZMXGpsLoadingActivity extends BaseActivity<GpsLoadingContract.GpsLoadingPresenter> implements GpsLoadingContract.GpsLoadingView{
 
     /** 标题 */
     @BindView(R.id.title_view)
@@ -85,8 +85,6 @@ public class ZMXGpsLoadingActivity extends BaseActivity implements GpsLoadingCon
     private String userName;
 
     private String posDesc;//安装位置 描述
-
-    GpsLoadingContract.GpsLoadingPresenter mPresenter;
 
     /** 图片 */
     private ArrayList<ImgBean.ImgListBean> datasCarInfo;
@@ -116,7 +114,6 @@ public class ZMXGpsLoadingActivity extends BaseActivity implements GpsLoadingCon
 
     @Override
     protected void initGetData() {
-        mPresenter = new GpsLoadingPresenter(this);
 
         imeiId = getBundle.getString("imeiId");
         simId = getBundle.getString("simId");
@@ -135,6 +132,11 @@ public class ZMXGpsLoadingActivity extends BaseActivity implements GpsLoadingCon
     @Override
     protected void widgetListener() {
 
+    }
+
+    @Override
+    public GpsLoadingContract.GpsLoadingPresenter initPresenter() {
+        return new GpsLoadingPresenter(this);
     }
 
     //继续安装传0

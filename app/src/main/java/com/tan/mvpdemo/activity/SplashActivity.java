@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.tan.mvpdemo.BaseApplication;
 import com.tan.mvpdemo.R;
+import com.tan.mvpdemo.activityMvp.BasePresenter;
 import com.tan.mvpdemo.uitl.Constant;
 import com.tan.mvpdemo.uitl.IntentUtil;
 import com.tan.mvpdemo.uitl.LogUtil;
@@ -44,6 +45,11 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void widgetListener() {
 
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     private Handler handler = new Handler();

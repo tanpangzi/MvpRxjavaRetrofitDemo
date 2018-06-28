@@ -3,6 +3,7 @@ package com.tan.mvpdemo.activityMvp.presenter;
 import android.text.TextUtils;
 
 import com.tan.mvpdemo.BaseApplication;
+import com.tan.mvpdemo.activityMvp.BasePresenterImpl;
 import com.tan.mvpdemo.activityMvp.contract.ZMXDeviceInfoContract;
 import com.tan.mvpdemo.activityMvp.model.ZMXDeviceInfoModel;
 import com.tan.mvpdemo.bean.gpsInstall.ZMXGPSDeviceInfoBean;
@@ -21,14 +22,12 @@ import rx.schedulers.Schedulers;
  * <br> Date: 2018/6/6
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class ZMXDeviceInfoPresenter implements ZMXDeviceInfoContract.ZMXDeviceInfoPresenter {
+public class ZMXDeviceInfoPresenter extends BasePresenterImpl<ZMXDeviceInfoContract.ZMXDeviceInfoView> implements ZMXDeviceInfoContract.ZMXDeviceInfoPresenter {
 
-    ZMXDeviceInfoContract.ZMXDeviceInfoView view;
     ZMXDeviceInfoContract.ZMXDeviceInfoModel model;
 
     public ZMXDeviceInfoPresenter(ZMXDeviceInfoContract.ZMXDeviceInfoView view) {
-        this.view = view;
-        model = new ZMXDeviceInfoModel();
+        super(view);
     }
 
     /** 根据Imei获取设备信息 */

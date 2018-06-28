@@ -1,5 +1,7 @@
 package com.tan.mvpdemo.activityMvp.contract;
 
+import com.tan.mvpdemo.activityMvp.BasePresenter;
+import com.tan.mvpdemo.activityMvp.BaseView;
 import com.tan.mvpdemo.bean.UpdateInfoBean;
 
 import java.util.HashMap;
@@ -19,7 +21,7 @@ public interface MainContract {
         Observable<UpdateInfoBean> checkVersion(HashMap<String, String> map);
     }
 
-    interface MainView {
+    interface MainView extends BaseView{
         void onShowDialog(String title, String message);
 
         void onCloseDialog();
@@ -40,7 +42,7 @@ public interface MainContract {
 
     }
 
-    interface MainPresenter {
+    interface MainPresenter extends BasePresenter{
          /** 版本更新 */
         void checkVersion();
     }

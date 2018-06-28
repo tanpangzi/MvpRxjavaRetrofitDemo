@@ -3,6 +3,7 @@ package com.tan.mvpdemo.activityMvp.presenter;
 import android.text.TextUtils;
 
 import com.tan.mvpdemo.BaseApplication;
+import com.tan.mvpdemo.activityMvp.BasePresenterImpl;
 import com.tan.mvpdemo.activityMvp.contract.ZMXCarContract;
 import com.tan.mvpdemo.activityMvp.model.ZMXCarModel;
 import com.tan.mvpdemo.bean.gpsInstall.CustIdBean;
@@ -22,14 +23,12 @@ import rx.schedulers.Schedulers;
  * <br> Date: 2018/6/5
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class ZMXCarPresenter implements ZMXCarContract.ZMXCarPresenter {
+public class ZMXCarPresenter extends BasePresenterImpl<ZMXCarContract.ZMXCarView> implements ZMXCarContract.ZMXCarPresenter {
 
     ZMXCarContract.ZMXCarModel model;
-    ZMXCarContract.ZMXCarView view;
 
     public ZMXCarPresenter(ZMXCarContract.ZMXCarView view) {
-        this.view = view;
-        model = new ZMXCarModel();
+        super(view);
     }
 
     /** 获取组织信息 */
@@ -116,4 +115,13 @@ public class ZMXCarPresenter implements ZMXCarContract.ZMXCarPresenter {
 
     }
 
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void detach() {
+
+    }
 }

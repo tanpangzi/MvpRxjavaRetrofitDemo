@@ -1,6 +1,7 @@
 package com.tan.mvpdemo.activityMvp.presenter;
 
 import com.tan.mvpdemo.BaseApplication;
+import com.tan.mvpdemo.activityMvp.BasePresenterImpl;
 import com.tan.mvpdemo.activityMvp.contract.ImageBrowseContract;
 import com.tan.mvpdemo.activityMvp.model.ImageBrowseModel;
 import com.tan.mvpdemo.common.http.FilterSubscriber;
@@ -18,14 +19,12 @@ import rx.schedulers.Schedulers;
  * <br> Date: 2018/6/11
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class ImageBrowsePresenter implements ImageBrowseContract.ImageBrowsePresenter {
+public class ImageBrowsePresenter extends BasePresenterImpl< ImageBrowseContract.ImageBrowseView> implements ImageBrowseContract.ImageBrowsePresenter {
 
-    ImageBrowseContract.ImageBrowseView view;
     ImageBrowseContract.ImageBrowseModel model;
 
     public ImageBrowsePresenter(ImageBrowseContract.ImageBrowseView view) {
-        this.view = view;
-        model = new ImageBrowseModel();
+        super(view);
     }
 
     /** 图片删除 */

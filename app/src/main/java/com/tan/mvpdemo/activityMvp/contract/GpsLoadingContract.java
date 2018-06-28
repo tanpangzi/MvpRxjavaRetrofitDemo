@@ -1,5 +1,6 @@
 package com.tan.mvpdemo.activityMvp.contract;
 
+import com.tan.mvpdemo.activityMvp.BasePresenter;
 import com.tan.mvpdemo.activityMvp.BaseView;
 import com.tan.mvpdemo.adapter.PhotoGridAdapter;
 import com.tan.mvpdemo.bean.ImgBean;
@@ -66,7 +67,7 @@ public interface GpsLoadingContract {
         void getGpsReturnInfo(GPSBean bean);
     }
 
-    interface GpsLoadingPresenter {
+    interface GpsLoadingPresenter extends BasePresenter{
         void newBinding(PhotoGridAdapter mAdapter, String userName, String custId, String simId, String imeiId,String isGetLocation);
 
         /**

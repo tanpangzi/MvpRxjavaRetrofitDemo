@@ -33,7 +33,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  * <br> Date: 2016年12月11日
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class ImageBrowseActivity extends BaseActivity implements ImageBrowseContract.ImageBrowseView{
+public class ImageBrowseActivity extends BaseActivity<ImageBrowseContract.ImageBrowsePresenter> implements ImageBrowseContract.ImageBrowseView{
 
     /** ViewPager 自定义控制左右滑动事件 */
     private CustomViewPager4Lock viewPager;
@@ -50,8 +50,6 @@ public class ImageBrowseActivity extends BaseActivity implements ImageBrowseCont
     /** 样例图预览 TODO  businessId为空 */
     private String businessId = ""; //正在用不上这个值
     private String custId = "";
-
-    private ImageBrowseContract.ImageBrowsePresenter presenter;
 
     /*************评估 gps安装 抵押 解押*************/
     private int imgType; //用来区别 车辆评估 gps安装 车辆抵押 车辆解押
@@ -73,7 +71,6 @@ public class ImageBrowseActivity extends BaseActivity implements ImageBrowseCont
     @Override
     public void initGetData() {
         Bundle bundle = this.getIntent().getExtras();
-        presenter = new ImageBrowsePresenter(this);
         if (bundle != null) {
             groupId = bundle.getString("groupId"); //用于区别录单和 区别 车辆评估 gps安装 车辆抵押 车辆解押
             imgPath = bundle.getStringArrayList(ConstantKey.INTENT_KEY_DATAS);
@@ -215,6 +212,11 @@ public class ImageBrowseActivity extends BaseActivity implements ImageBrowseCont
 
     }
 
+    @Override
+    public ImageBrowseContract.ImageBrowsePresenter initPresenter() {
+        return new ImageBrowsePresenter(this);
+    }
+
 
     /*private void deleteImg() {
         RequestExecutor.addTask(new BaseTask(ImageBrowseActivity.this, "删除中请稍候", false) {
@@ -309,7 +311,7 @@ public class ImageBrowseActivity extends BaseActivity implements ImageBrowseCont
                             }else {
                                 fileName = groupId + "_" + currentItem;
                             }
-                            presenter.deleteImg(Constant.GROUPID_POSITIONIMAGES, fileName, imeiId);
+                            mPresenter.deleteImg(Constant.GROUPID_POSITIONIMAGES, fileName, imeiId);
                         }
                     }
                 });

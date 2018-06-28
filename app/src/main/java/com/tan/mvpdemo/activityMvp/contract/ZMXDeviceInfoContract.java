@@ -1,5 +1,6 @@
 package com.tan.mvpdemo.activityMvp.contract;
 
+import com.tan.mvpdemo.activityMvp.BasePresenter;
 import com.tan.mvpdemo.activityMvp.BaseView;
 import com.tan.mvpdemo.bean.gpsInstall.ZMXGPSDeviceInfoBean;
 
@@ -36,7 +37,7 @@ public interface ZMXDeviceInfoContract {
         void getDeviceInfoByImei(ZMXGPSDeviceInfoBean infoBean);
     }
 
-    interface ZMXDeviceInfoPresenter {
+    interface ZMXDeviceInfoPresenter extends BasePresenter{
         /** 获取设备信息 */
         void getInfoByImei(String custId);
         /** 绑定设备 */

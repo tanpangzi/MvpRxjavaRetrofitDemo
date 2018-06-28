@@ -28,7 +28,7 @@ import butterknife.BindView;
  * <br> Date: 2018/6/1
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class MainActivity extends BaseActivity implements MainContract.MainView{
+public class MainActivity extends BaseActivity<MainContract.MainPresenter> implements MainContract.MainView{
 
 
     @BindView(R.id.radiogroup)
@@ -54,8 +54,6 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
      */
     private long exitTime = 0;
 
-    MainContract.MainPresenter mainPresenter;
-
     private ProgressDialog mProgressDialog;
 
     @Override
@@ -70,8 +68,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
 
     @Override
     protected void initGetData() {
-        mainPresenter = new MainPresenter(this);
-        mainPresenter.checkVersion();
+        mPresenter.checkVersion();
     }
 
     @Override
@@ -100,6 +97,11 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
             }
             //            }
         });
+    }
+
+    @Override
+    public MainContract.MainPresenter initPresenter() {
+        return new MainPresenter(this);
     }
 
 
@@ -226,4 +228,13 @@ public class MainActivity extends BaseActivity implements MainContract.MainView{
 
     }
 
+    @Override
+    public void showToast(String msg) {
+        ToastUtil.showToast(this, msg);
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
 }

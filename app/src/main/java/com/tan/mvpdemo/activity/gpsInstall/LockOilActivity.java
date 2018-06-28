@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
+import com.iflytek.cloud.thirdparty.P;
 import com.tan.mvpdemo.BaseApplication;
 import com.tan.mvpdemo.R;
 import com.tan.mvpdemo.activity.BaseActivity;
@@ -19,7 +20,7 @@ import com.tan.mvpdemo.uitl.ToastUtil;
  * 锁油断电模式
  * created by tanjun
  */
-public class LockOilActivity extends BaseActivity implements View.OnClickListener,LockOilContract.LockOilView {
+public class LockOilActivity extends BaseActivity<LockOilContract.LockOilPresenter> implements View.OnClickListener,LockOilContract.LockOilView {
 
     TitleView title_view; //标题
     RadioButton rb_lock; //锁油断电
@@ -36,8 +37,6 @@ public class LockOilActivity extends BaseActivity implements View.OnClickListene
     private String imei;
 
     private String userId;
-
-    LockOilContract.LockOilPresenter presenter;
 
     @Override
     protected int getContentViewId() {
@@ -57,7 +56,6 @@ public class LockOilActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void initGetData() {
         userId = BaseApplication.getInstance().getUserInfoBean().getUserId();
-        presenter = new LockOilPresenter(this);
     }
 
     @Override
@@ -72,6 +70,12 @@ public class LockOilActivity extends BaseActivity implements View.OnClickListene
         rl_restore.setOnClickListener(this);
         btn_confirm.setOnClickListener(this);
     }
+
+    @Override
+    public LockOilContract.LockOilPresenter initPresenter() {
+        return new LockOilPresenter(this);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -100,7 +104,7 @@ public class LockOilActivity extends BaseActivity implements View.OnClickListene
                     showToast("请选择操作方式！");
                     return;
                 }
-                presenter.lockInstruction(imei);
+                mPresenter.lockInstruction(imei);
                 break;
         }
     }

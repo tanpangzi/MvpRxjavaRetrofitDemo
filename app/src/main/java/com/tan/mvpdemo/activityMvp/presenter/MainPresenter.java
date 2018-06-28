@@ -2,8 +2,8 @@ package com.tan.mvpdemo.activityMvp.presenter;
 
 import android.text.TextUtils;
 
+import com.tan.mvpdemo.activityMvp.BasePresenterImpl;
 import com.tan.mvpdemo.activityMvp.contract.MainContract;
-import com.tan.mvpdemo.activityMvp.model.MainModel;
 import com.tan.mvpdemo.bean.UpdateInfoBean;
 import com.tan.mvpdemo.common.http.FilterSubscriber;
 import com.tan.mvpdemo.config.ConstantKey;
@@ -22,9 +22,8 @@ import rx.schedulers.Schedulers;
  * <br> Date: 2018/6/4
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class MainPresenter implements MainContract.MainPresenter {
+public class MainPresenter extends BasePresenterImpl<MainContract.MainView> implements MainContract.MainPresenter {
 
-    MainContract.MainView mainView;
     MainContract.MainModel mainModel;
 
     /**
@@ -37,15 +36,15 @@ public class MainPresenter implements MainContract.MainPresenter {
      */
     String downUrl;
 
-    public MainPresenter(MainContract.MainView mainView) {
-        this.mainView = mainView;
-        mainModel = new MainModel();
+    public MainPresenter(MainContract.MainView view) {
+        super(view);
     }
+
 
     @Override
     public void checkVersion() {
-        if (mainModel != null && mainView != null){
-            mainView.onShowDialog("提示", "正本检查更新...");
+        if (mainModel != null && view != null){
+            view.onShowDialog("提示", "正本检查更新...");
 
             /** 当前app版本号 */
             String verName = Tools.getVersionName();
@@ -61,7 +60,7 @@ public class MainPresenter implements MainContract.MainPresenter {
                     .subscribe(new FilterSubscriber<UpdateInfoBean>() {
                         @Override
                         public void onNext(UpdateInfoBean data) {
-                            mainView.onCloseDialog();
+                            view.onCloseDialog();
                             compareVerCode(data);
                         }
 
@@ -97,7 +96,7 @@ public class MainPresenter implements MainContract.MainPresenter {
                     content = "请下载最新的版本";
                 }
                 downUrl = bean.getUrl();
-                mainView.onShowAlertDialog("贷业通版本更新", content, isForce);
+                view.onShowAlertDialog("贷业通版本更新", content, isForce);
 
             }
         }

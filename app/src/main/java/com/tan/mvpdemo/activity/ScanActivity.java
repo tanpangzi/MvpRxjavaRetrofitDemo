@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 
 import com.tan.mvpdemo.R;
+import com.tan.mvpdemo.activityMvp.BasePresenter;
 import com.tan.mvpdemo.config.RequestCode;
 import com.tan.mvpdemo.uitl.TitleView;
 import com.tan.mvpdemo.uitl.ToastUtil;
@@ -33,7 +34,7 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
 
     @Override
     protected void findViews() {
-        mQRCodeView = findViewByIds(R.id.zbarview);
+        mQRCodeView = findViewById(R.id.zbarview);
     }
 
     @Override
@@ -76,6 +77,11 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate {
     @Override
     protected void widgetListener() {
 
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     @Override

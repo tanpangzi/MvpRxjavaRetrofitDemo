@@ -22,6 +22,7 @@ import android.view.WindowManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.tan.mvpdemo.BaseApplication;
 import com.tan.mvpdemo.R;
+import com.tan.mvpdemo.activityMvp.BasePresenter;
 import com.tan.mvpdemo.bean.UserInfoLoginBean;
 import com.tan.mvpdemo.broadcast.BroadCastFilter;
 import com.tan.mvpdemo.uitl.AppManagerUtil;
@@ -44,7 +45,7 @@ import butterknife.ButterKnife;
  * <br> Date: 2016年3月29日
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity<P extends BasePresenter> extends FragmentActivity {
 
     /** 父视图 */
     protected View viewParent;
@@ -66,6 +67,9 @@ public abstract class BaseActivity extends FragmentActivity {
 
     private String mDialogTitle = "提示";
 
+    /** 公共的P层*/
+    protected P mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +88,8 @@ public abstract class BaseActivity extends FragmentActivity {
         getBundle = getIntent().getExtras();
         /** 传值用的Bundle */
         postBundle = new Bundle();
+        /** P层实例化 */
+        mPresenter = initPresenter();
 
         try {
             findViews();
@@ -216,6 +222,13 @@ public abstract class BaseActivity extends FragmentActivity {
      * <br> UpdateInfo: (此处输入修改内容,若无修改可不写.)
      */
     protected abstract void widgetListener();
+
+    /**
+     * presenter初始化
+     * add by tanjun
+     * @return
+     */
+    public abstract P initPresenter();
 
     /**
      * 重置视图

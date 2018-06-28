@@ -3,6 +3,7 @@ package com.tan.mvpdemo.activityMvp.presenter;
 import android.text.TextUtils;
 
 import com.tan.mvpdemo.BaseApplication;
+import com.tan.mvpdemo.activityMvp.BasePresenterImpl;
 import com.tan.mvpdemo.bean.UserInfoLoginBean;
 import com.tan.mvpdemo.common.http.FilterSubscriber;
 import com.tan.mvpdemo.activityMvp.contract.LoginContract;
@@ -19,14 +20,12 @@ import rx.schedulers.Schedulers;
  * Created by tanjun on 2018/5/31.
  * 登录Presnter
  */
-public class LoginPresenter implements LoginContract.LoginPresenter {
+public class LoginPresenter extends BasePresenterImpl<LoginContract.LoginView> implements LoginContract.LoginPresenter {
 
     LoginContract.LoginModel model;
-    LoginContract.LoginView view;
 
     public LoginPresenter(LoginContract.LoginView view) {
-        this.view = view;
-        model = new LoginModel();
+        super(view);
     }
 
     @Override

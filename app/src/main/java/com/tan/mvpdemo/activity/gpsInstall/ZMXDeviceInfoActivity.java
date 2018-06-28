@@ -42,7 +42,7 @@ import permissions.dispatcher.RuntimePermissions;
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
 @RuntimePermissions
-public class ZMXDeviceInfoActivity extends BaseActivity implements ZMXDeviceInfoContract.ZMXDeviceInfoView {
+public class ZMXDeviceInfoActivity extends BaseActivity<ZMXDeviceInfoContract.ZMXDeviceInfoPresenter> implements ZMXDeviceInfoContract.ZMXDeviceInfoView {
     /**
      * 扫描
      */
@@ -98,12 +98,6 @@ public class ZMXDeviceInfoActivity extends BaseActivity implements ZMXDeviceInfo
      */
     String deviceName;
 
-    /**
-     * P层
-     */
-    ZMXDeviceInfoContract.ZMXDeviceInfoPresenter mPresenter;
-
-
     @Override
     protected int getContentViewId() {
         return R.layout.activity_zmx_device_info;
@@ -117,8 +111,6 @@ public class ZMXDeviceInfoActivity extends BaseActivity implements ZMXDeviceInfo
     @Override
     protected void initGetData() {
         custId = getBundle.getString("custId");
-        /** 实例化P层 */
-        mPresenter = new ZMXDeviceInfoPresenter(this);
     }
 
     @Override
@@ -149,6 +141,11 @@ public class ZMXDeviceInfoActivity extends BaseActivity implements ZMXDeviceInfo
             }
         });
 
+    }
+
+    @Override
+    public ZMXDeviceInfoContract.ZMXDeviceInfoPresenter initPresenter() {
+        return new ZMXDeviceInfoPresenter(this);
     }
 
 

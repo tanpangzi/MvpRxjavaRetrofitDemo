@@ -1,5 +1,7 @@
 package com.tan.mvpdemo.activityMvp.contract;
 
+import com.tan.mvpdemo.activityMvp.BasePresenter;
+import com.tan.mvpdemo.activityMvp.BaseView;
 import com.tan.mvpdemo.bean.gpsInstall.CustIdBean;
 import com.tan.mvpdemo.bean.PickerCardBean;
 
@@ -23,7 +25,7 @@ public interface ZMXCarContract {
         Observable<CustIdBean> createCustomerInfo(Map<String, String> map);
     }
 
-    interface ZMXCarView {
+    interface ZMXCarView extends BaseView{
         void showToast(String msg);
         /** 客户姓名 */
         String getCustomerName();
@@ -39,7 +41,7 @@ public interface ZMXCarContract {
         void onSuccess();
     }
 
-    interface ZMXCarPresenter {
+    interface ZMXCarPresenter extends BasePresenter {
         void getOrgInfo();
         void createCustomerInfo();
     }

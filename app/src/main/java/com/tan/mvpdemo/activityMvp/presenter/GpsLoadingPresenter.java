@@ -3,6 +3,7 @@ package com.tan.mvpdemo.activityMvp.presenter;
 import android.text.TextUtils;
 
 import com.tan.mvpdemo.BaseApplication;
+import com.tan.mvpdemo.activityMvp.BasePresenterImpl;
 import com.tan.mvpdemo.activityMvp.contract.GpsLoadingContract;
 import com.tan.mvpdemo.activityMvp.model.GpsLoadingModel;
 import com.tan.mvpdemo.adapter.PhotoGridAdapter;
@@ -36,14 +37,12 @@ import rx.schedulers.Schedulers;
  * <br> Date: 2018/6/7
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-public class GpsLoadingPresenter implements GpsLoadingContract.GpsLoadingPresenter {
+public class GpsLoadingPresenter extends BasePresenterImpl<GpsLoadingContract.GpsLoadingView> implements GpsLoadingContract.GpsLoadingPresenter {
 
-    GpsLoadingContract.GpsLoadingView view;
     GpsLoadingContract.GpsLoadingModel model;
 
     public GpsLoadingPresenter(GpsLoadingContract.GpsLoadingView view) {
-        this.view = view;
-        model = new GpsLoadingModel();
+        super(view);
     }
 
     /**

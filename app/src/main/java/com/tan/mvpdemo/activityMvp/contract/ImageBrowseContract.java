@@ -1,6 +1,7 @@
 package com.tan.mvpdemo.activityMvp.contract;
 
 
+import com.tan.mvpdemo.activityMvp.BasePresenter;
 import com.tan.mvpdemo.activityMvp.BaseView;
 
 import java.util.Map;
@@ -25,7 +26,7 @@ public interface ImageBrowseContract {
 
     }
 
-    interface ImageBrowsePresenter {
+    interface ImageBrowsePresenter extends BasePresenter{
         void deleteImg(String imageType, String fileName, String imeiId);
     }
 }
