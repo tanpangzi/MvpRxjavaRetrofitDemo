@@ -6,14 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.BaseExpandableListAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.tan.mvpdemo.R
 import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor
 import org.jetbrains.anko.find
-import org.jetbrains.anko.image
-import org.jetbrains.anko.imageBitmap
 import org.jetbrains.anko.textColor
 
 /**
@@ -23,8 +20,8 @@ import org.jetbrains.anko.textColor
  * <br> Date: 2018/6/26
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class GpsMonitorStoryAdapter(context : Context, resId: Int, datas : ArrayList<GpsMonitor.GpsMonitorSotryBean>)
-    : ArrayAdapter<GpsMonitor.GpsMonitorSotryBean>(context, resId, datas) {
+class GpsMonitorStoryAdapter(context : Context, resId: Int, data : ArrayList<GpsMonitor.GpsMonitorStoryBean>)
+    : ArrayAdapter<GpsMonitor.GpsMonitorStoryBean>(context, resId, data) {
     /** xml布局  ID */
     val resId = resId
 
@@ -52,11 +49,11 @@ class GpsMonitorStoryAdapter(context : Context, resId: Int, datas : ArrayList<Gp
         container_plate.text = item.carNumber
 
         /** 图标 */
-        if ("0".equals(item.type)){
+        if ("0" == item.type){
             containe_image.setImageResource(R.mipmap.alarm_icon_wired)
-        }else if ("1".equals(item.type)){
+        }else if ("1" == item.type){
             containe_image.setImageResource(R.mipmap.alarm_info_icon_wireless)
-        }else if ("2".equals(item.type)){
+        }else if ("2" == item.type){
             containe_image.setImageResource(R.mipmap.odb_icon)
         }
 
@@ -65,7 +62,7 @@ class GpsMonitorStoryAdapter(context : Context, resId: Int, datas : ArrayList<Gp
         val orgName = item.orgName
         var acc = "ACC"
         val accState = item.accState
-        if ("0".equals(accState)){
+        if ("0" == accState){
             acc += "关"
         }else if ("1".equals(accState)){
             acc += "开"
@@ -97,7 +94,7 @@ class GpsMonitorStoryAdapter(context : Context, resId: Int, datas : ArrayList<Gp
 
     }
 
-    fun getTextColor(color : String) : Int{
+    private fun getTextColor(color : String) : Int{
         var c = -1
         when(color){
             "0" -> c = Color.GRAY

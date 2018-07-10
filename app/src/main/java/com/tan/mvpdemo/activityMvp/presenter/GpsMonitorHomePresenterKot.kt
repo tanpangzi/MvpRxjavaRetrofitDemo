@@ -17,39 +17,41 @@ import rx.schedulers.Schedulers
  * <br></br> Date: 2018/6/22
  * <br></br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class GpsMonitorHomePresenterKot (view : GpsMonitorHomeContractKot.HomeView) : BasePresenterImpl<GpsMonitorHomeContractKot.HomeView>(view), GpsMonitorHomeContractKot.HomePresenter {
+class GpsMonitorHomePresenterKot(view: GpsMonitorHomeContractKot.HomeView)
+    : BasePresenterImpl<GpsMonitorHomeContractKot.HomeView>(view),
+        GpsMonitorHomeContractKot.HomePresenter {
 
-    var gpsModelKot : GpsMonitorHomeContractKot.HomeModel ?= null
+    var gpsModelKot: GpsMonitorHomeContractKot.HomeModel? = null
 
-     /** 请求方法 */
+    /** 请求方法 */
     override fun getStoreList() {
-         var map = ThreeDES.getPostHeadMap()
+        var map = ThreeDES.getPostHeadMap()
 
-         /** 这相当于map.put */
-         val token= BaseApplication.getInstance().token
-         val name = BaseApplication.getInstance().userInfoBean.userName
+        /** 这相当于map.put */
+        val token = BaseApplication.getInstance().token
+        val name = BaseApplication.getInstance().userInfoBean.userName
 
-         map.put("token", token)
-         map.put("name", name)
+        map.put("token", token)
+        map.put("name", name)
 
-         gpsModelKot!!.getStoreList(map)
-                 .subscribeOn(Schedulers.io())
-                 .unsubscribeOn(Schedulers.io())
-                 .observeOn(AndroidSchedulers.mainThread())
-                 /** 注意这里有一个object */
-                 .subscribe(object : FilterSubscriber<GpsMonitor.HomeBean>(){
-                     override fun onNext(data: GpsMonitor.HomeBean?) {
+        gpsModelKot!!.getStoreList(map)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                /** 注意这里有一个object */
+                .subscribe(object : FilterSubscriber<GpsMonitor.HomeBean>() {
+                    override fun onNext(data: GpsMonitor.HomeBean?) {
                         view.getStoreList(data!!)
-                     }
+                    }
 
-                     override fun onCompleted() {
+                    override fun onCompleted() {
 
-                     }
+                    }
 
-                     override fun onError(str: String?) {
-                         view.showToast(str)
-                     }
+                    override fun onError(str: String?) {
+                        view.showToast(str)
+                    }
 
-                 })
+                })
     }
 }

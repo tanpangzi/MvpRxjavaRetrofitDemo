@@ -17,9 +17,7 @@ interface SettingContract {
         fun logout(map : Map<String, String>) : Observable<Any>
     }
 
-    interface SettingView : BaseView{
-
-    }
+    interface SettingView : BaseView
 
     interface SettingPresenter : BasePresenter{
         fun logout()

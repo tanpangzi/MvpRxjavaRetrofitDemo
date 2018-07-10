@@ -1,7 +1,6 @@
 package com.tan.mvpdemo.activity.gpsMonitor
 
 import android.os.Bundle
-import android.view.View
 import android.widget.ListView
 import android.widget.TextView
 import com.tan.mvpdemo.R
@@ -24,7 +23,8 @@ import java.util.ArrayList
  * <br> Date: 2018/6/22
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class GpsMonitorHomeActivity : BaseActivity<GpsMonitorHomeContractKot.HomePresenter>(), GpsMonitorHomeContractKot.HomeView{
+class GpsMonitorHomeActivity : BaseActivity<GpsMonitorHomeContractKot.HomePresenter>()
+        , GpsMonitorHomeContractKot.HomeView{
 
     override fun initPresenter(): GpsMonitorHomeContractKot.HomePresenter {
         return GpsMonitorHomePresenterKot(this)
@@ -49,8 +49,6 @@ class GpsMonitorHomeActivity : BaseActivity<GpsMonitorHomeContractKot.HomePresen
     /** 数量 */
     private var orderListBean = ArrayList<GpsMonitor.GpsMonitorHomeListBean>()
 
-    //private var presenter : GpsMonitorHomeContractKot.HomePresenter ?= null
-
     override fun getContentViewId(): Int {
         return R.layout.activity_gps_monitor_home
     }
@@ -71,11 +69,11 @@ class GpsMonitorHomeActivity : BaseActivity<GpsMonitorHomeContractKot.HomePresen
     override fun init() {
         title_view!!.setTitle("紫米星监控平台")
         title_view!!.setLeftBtnImg()
-        title_view!!.setRightBtnImg(R.drawable.search_big, View.OnClickListener {
+        title_view!!.setRightBtnImg(R.drawable.search_big) {
             var bundle = Bundle()
             bundle.putBoolean(ConstantKey.INTENT_KEY_BOOLEAN1, false)
             IntentUtil.gotoActivity(this@GpsMonitorHomeActivity, GpsMonitorStoryActivity::class.java, bundle)
-        })
+        }
 
         mPresenter!!.getStoreList()
     }

@@ -16,6 +16,7 @@ class GpsMonitor {
                         val online : String,
                         val returnList: ArrayList<GpsMonitorHomeListBean>)
 
+    /** gps监控第一层 */
     data class GpsMonitorHomeListBean(val orgId : String,//机构id
                                       val invalid : String, //失效个数
                                       val sum : String,//当前门店总数
@@ -26,20 +27,24 @@ class GpsMonitor {
 
     /**********************************/
     /** gps监控第二层 */
-    data class GpsMonitorSotryBean(val status : String,
-                                   val speed : String,
-                                   val accState : String,
-                                   val orgName : String,
-                                   val type : String,
-                                   val warning_name : String,
-                                   val location_time : String,
-                                   val driveStatus : String,
-                                   val name : String,
-                                   val carNumber : String,
-                                   val imeiId : String,
-                                   val warning_type : String,
-                                   val beOnline : String,
+
+    data class StoryList(val returnList : ArrayList<GpsMonitorStoryBean>)
+
+    data class GpsMonitorStoryBean(val status : String, //设备报警
+                                   val speed : String, //速度
+                                   val accState : String, //0关 1开
+                                   val orgName : String, //组织名称 广东
+                                   val type : String,//设备类型 0有线 1无线 2ODB
+                                   val warning_name : String, //越界报警
+                                   val location_time : String, //定位时间
+                                   val driveStatus : String, //行驶状态 静止
+                                   val name : String, // name : 测试14530108763
+                                   val carNumber : String, //车牌号
+                                   val imeiId : String, //imeId
+                                   val warning_type : String, // warning_type : 5
+                                   val beOnline : String, //是否在线
                                    val online_status :String,
                                    val color : String)
+
 
 }

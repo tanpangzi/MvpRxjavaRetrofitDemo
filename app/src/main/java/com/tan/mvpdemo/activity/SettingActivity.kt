@@ -10,6 +10,7 @@ import com.tan.mvpdemo.uitl.TitleView
 import com.tan.mvpdemo.uitl.ToastUtil
 import com.tan.mvpdemo.widget.AutoBgButton
 import com.tan.mvpdemo.widget.AutoBgTextView
+import org.jetbrains.anko.find
 
 /**
  * <br> Description 设置界面

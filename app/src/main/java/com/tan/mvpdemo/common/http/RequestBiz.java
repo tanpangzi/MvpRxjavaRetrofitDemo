@@ -93,6 +93,13 @@ public interface RequestBiz {
     @POST("/app/auth/mine/logout")
     Observable<Result<Object>> logOut(@QueryMap Map<String, String> map);
 
+    /** GPS监控获取门店下设备列表        @POST("/app/gps/getEquipmentList") */
+    @POST("/app/gps/getEquipmentList")
+    Observable<Result<GpsMonitor.StoryList>> getEquipmentList(@QueryMap Map<String, String> map);
+    /** 超级管管理员GPS监控获取门店下设备列表 */
+    @POST("app/auth/getEquipmentListForSuperManager")
+    Observable<Result<GpsMonitor.StoryList>> getEquipmentListForSuperManager(@QueryMap Map<String, String> map);
+
     /*@POST("/app/version/check")
 //@Query("verCode") String verCode, @Query("type") String type, @Query("posttime") String posttime,@Query("sign") String sign
     Observable<Result<Version>> check(@QueryMap Map<String, Object> map);
