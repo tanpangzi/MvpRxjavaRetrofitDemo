@@ -1,8 +1,8 @@
 package com.tan.mvpdemo.activityMvp.presenter
 
 import com.tan.mvpdemo.BaseApplication
+import com.tan.mvpdemo.activityMvp.BasePresenterImpl
 import com.tan.mvpdemo.activityMvp.contract.LockOilContract
-import com.tan.mvpdemo.activityMvp.model.LockOilModel
 import com.tan.mvpdemo.common.http.FilterSubscriber
 import com.tan.mvpdemo.uitl.ThreeDES
 
@@ -16,13 +16,9 @@ import rx.schedulers.Schedulers
  * <br></br> Date: 2018/6/14
  * <br></br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class LockOilPresenterKot(internal var view: LockOilContract.LockOilView) : LockOilContract.LockOilPresenter {
+class LockOilPresenterKot(view: LockOilContract.LockOilView) : BasePresenterImpl<LockOilContract.LockOilView>(view), LockOilContract.LockOilPresenter {
 
-    internal var model: LockOilContract.LockOilModel
-
-    init {
-        model = LockOilModel()
-    }
+    internal var model: LockOilContract.LockOilModel? = null
 
     /** 锁油断电  */
     override fun lockInstruction(imeiId: String) {
@@ -36,7 +32,7 @@ class LockOilPresenterKot(internal var view: LockOilContract.LockOilView) : Lock
         map["uId"] = uId
         map["tenantId"] = "0000100001"
 
-        model.lockInstrution(map)
+        model!!.lockInstrution(map)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

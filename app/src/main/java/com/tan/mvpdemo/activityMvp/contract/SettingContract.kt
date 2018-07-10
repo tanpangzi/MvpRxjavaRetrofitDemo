@@ -1,6 +1,7 @@
 package com.tan.mvpdemo.activityMvp.contract
 
 
+import com.tan.mvpdemo.activityMvp.BasePresenter
 import com.tan.mvpdemo.activityMvp.BaseView
 import rx.Observable
 
@@ -20,7 +21,7 @@ interface SettingContract {
 
     }
 
-    interface SettingPresenter {
+    interface SettingPresenter : BasePresenter{
         fun logout()
     }
 

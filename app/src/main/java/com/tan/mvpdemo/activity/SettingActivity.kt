@@ -10,7 +10,6 @@ import com.tan.mvpdemo.uitl.TitleView
 import com.tan.mvpdemo.uitl.ToastUtil
 import com.tan.mvpdemo.widget.AutoBgButton
 import com.tan.mvpdemo.widget.AutoBgTextView
-import org.jetbrains.anko.find
 
 /**
  * <br> Description 设置界面
@@ -19,7 +18,11 @@ import org.jetbrains.anko.find
  * <br> Date: 2018/6/25
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class SettingActivity : BaseActivity() ,SettingContract.SettingView{
+class SettingActivity : BaseActivity<SettingContract.SettingPresenter>() ,SettingContract.SettingView{
+
+    override fun initPresenter(): SettingContract.SettingPresenter {
+        return SettingPresenter(this)
+    }
 
     /** 标题 */
     var title_view : TitleView ?= null
@@ -30,7 +33,6 @@ class SettingActivity : BaseActivity() ,SettingContract.SettingView{
     /** 退出登录 */
     var btn_login_out : AutoBgButton ?= null
 
-    var presenter : SettingContract.SettingPresenter ?= null
 
     override fun getContentViewId(): Int {
         return R.layout.activity_setting
@@ -44,7 +46,6 @@ class SettingActivity : BaseActivity() ,SettingContract.SettingView{
     }
 
     override fun initGetData() {
-        presenter = SettingPresenter(this)
     }
 
     override fun init() {
@@ -54,7 +55,7 @@ class SettingActivity : BaseActivity() ,SettingContract.SettingView{
 
     override fun widgetListener() {
         btn_login_out!!.setOnClickListener {
-            presenter!!.logout()
+            mPresenter!!.logout()
         }
     }
 

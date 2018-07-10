@@ -1,6 +1,7 @@
 package com.tan.mvpdemo.activityMvp.presenter
 
 import com.tan.mvpdemo.BaseApplication
+import com.tan.mvpdemo.activityMvp.BasePresenterImpl
 import com.tan.mvpdemo.activityMvp.contract.SettingContract
 import com.tan.mvpdemo.activityMvp.model.SettingModel
 import com.tan.mvpdemo.common.http.FilterSubscriber
@@ -16,13 +17,9 @@ import rx.schedulers.Schedulers
  * <br></br> Date: 2018/6/25
  * <br></br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class SettingPresenter(internal var settingView : SettingContract.SettingView) : SettingContract.SettingPresenter {
+class SettingPresenter(view: SettingContract.SettingView) : BasePresenterImpl<SettingContract.SettingView>(view),SettingContract.SettingPresenter {
 
     var settingModel : SettingContract.SettingModel ?= null
-
-    init {
-        settingModel = SettingModel()
-    }
 
     override fun logout() {
         var map = ThreeDES.getPostHeadMap();
@@ -35,17 +32,15 @@ class SettingPresenter(internal var settingView : SettingContract.SettingView) :
                 .subscribe(object : FilterSubscriber<Any>(){
 
                     override fun onNext(data: Any?) {
-                        settingView.onSuccess()
+                        view.onSuccess()
                     }
 
                     override fun onCompleted() {
                     }
 
                     override fun onError(str: String?) {
-                        settingView.showToast(str)
+                        view.showToast(str)
                     }
-
-
 
                 })
     }

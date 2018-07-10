@@ -15,7 +15,7 @@ import org.jetbrains.anko.find
  * <br> Date: 2018/6/26
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class GpsMonitorStoryActivity : BaseActivity() {
+class GpsMonitorStoryActivity : BaseActivity<T>() {
 
     /** 标题 */
     private var title_view : TitleView ?= null

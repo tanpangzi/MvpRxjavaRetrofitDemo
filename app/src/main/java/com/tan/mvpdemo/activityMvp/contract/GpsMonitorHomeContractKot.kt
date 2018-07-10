@@ -1,5 +1,6 @@
 package com.tan.mvpdemo.activityMvp.contract
 
+import com.tan.mvpdemo.activityMvp.BasePresenter
 import com.tan.mvpdemo.activityMvp.BaseView
 import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor
 import rx.Observable
@@ -21,7 +22,7 @@ interface GpsMonitorHomeContractKot {
         fun getStoreList(stores : GpsMonitor.HomeBean)
     }
 
-    interface HomePresenter{
+    interface HomePresenter : BasePresenter{
         fun getStoreList()
     }
 }

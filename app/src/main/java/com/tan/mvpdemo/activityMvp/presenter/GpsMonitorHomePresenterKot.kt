@@ -1,6 +1,7 @@
 package com.tan.mvpdemo.activityMvp.presenter
 
 import com.tan.mvpdemo.BaseApplication
+import com.tan.mvpdemo.activityMvp.BasePresenterImpl
 import com.tan.mvpdemo.activityMvp.contract.GpsMonitorHomeContractKot
 import com.tan.mvpdemo.activityMvp.model.GpsMonitorHomeModelKot
 import com.tan.mvpdemo.bean.gpsMonitor.GpsMonitor
@@ -16,16 +17,9 @@ import rx.schedulers.Schedulers
  * <br></br> Date: 2018/6/22
  * <br></br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class GpsMonitorHomePresenterKot : GpsMonitorHomeContractKot.HomePresenter {
+class GpsMonitorHomePresenterKot (view : GpsMonitorHomeContractKot.HomeView) : BasePresenterImpl<GpsMonitorHomeContractKot.HomeView>(view), GpsMonitorHomeContractKot.HomePresenter {
 
-    var gpsViewKot : GpsMonitorHomeContractKot.HomeView ?= null
     var gpsModelKot : GpsMonitorHomeContractKot.HomeModel ?= null
-
-    /** 构造方法 */
-    constructor(gpsViewKot: GpsMonitorHomeContractKot.HomeView?) {
-        this.gpsViewKot = gpsViewKot
-        this.gpsModelKot = GpsMonitorHomeModelKot()
-    }
 
      /** 请求方法 */
     override fun getStoreList() {
@@ -45,7 +39,7 @@ class GpsMonitorHomePresenterKot : GpsMonitorHomeContractKot.HomePresenter {
                  /** 注意这里有一个object */
                  .subscribe(object : FilterSubscriber<GpsMonitor.HomeBean>(){
                      override fun onNext(data: GpsMonitor.HomeBean?) {
-                        gpsViewKot!!.getStoreList(data!!)
+                        view.getStoreList(data!!)
                      }
 
                      override fun onCompleted() {
@@ -53,7 +47,7 @@ class GpsMonitorHomePresenterKot : GpsMonitorHomeContractKot.HomePresenter {
                      }
 
                      override fun onError(str: String?) {
-                         gpsViewKot!!.showToast(str)
+                         view.showToast(str)
                      }
 
                  })

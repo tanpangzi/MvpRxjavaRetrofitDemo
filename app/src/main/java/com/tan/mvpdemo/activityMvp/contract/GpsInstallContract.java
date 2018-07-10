@@ -33,7 +33,7 @@ public interface GpsInstallContract{
         void installComplete();
     }
 
-    interface GpsInstallPresenter extends BasePresenter{
+    interface GpsInstallPresenter{
         /** 拆除 */
         void tearDown(String imeiId);
 

@@ -24,7 +24,11 @@ import java.util.ArrayList
  * <br> Date: 2018/6/22
  * <br> Copyright: Copyright © 2016 xTeam Technology. All rights reserved.
  */
-class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContractKot.HomeView{
+class GpsMonitorHomeActivity : BaseActivity<GpsMonitorHomeContractKot.HomePresenter>(), GpsMonitorHomeContractKot.HomeView{
+
+    override fun initPresenter(): GpsMonitorHomeContractKot.HomePresenter {
+        return GpsMonitorHomePresenterKot(this)
+    }
 
     /** 标题 */
     var title_view : TitleView ?= null
@@ -45,7 +49,7 @@ class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContractKot.HomeVie
     /** 数量 */
     private var orderListBean = ArrayList<GpsMonitor.GpsMonitorHomeListBean>()
 
-    private var presenter : GpsMonitorHomeContractKot.HomePresenter ?= null
+    //private var presenter : GpsMonitorHomeContractKot.HomePresenter ?= null
 
     override fun getContentViewId(): Int {
         return R.layout.activity_gps_monitor_home
@@ -73,8 +77,7 @@ class GpsMonitorHomeActivity : BaseActivity(), GpsMonitorHomeContractKot.HomeVie
             IntentUtil.gotoActivity(this@GpsMonitorHomeActivity, GpsMonitorStoryActivity::class.java, bundle)
         })
 
-        presenter = GpsMonitorHomePresenterKot(this)
-        presenter!!.getStoreList()
+        mPresenter!!.getStoreList()
     }
 
     override fun widgetListener() {
